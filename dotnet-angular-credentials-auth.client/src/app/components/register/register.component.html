@@ -1,8 +1,41 @@
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <input formControlName="email" type="email" placeholder="Email">
-    <input formControlName="username" type="text" placeholder="Username">
-    <input formControlName="password" type="password" placeholder="Password">
-    <button type="submit">Register</button>
-  </form>
-  <a routerLink="/login">Already have an account? Login</a>
-  
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title text-center mb-4">Register</h2>
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+              <div class="mb-3">
+                <input type="email" class="form-control" formControlName="email" placeholder="Email">
+                @if (registerForm.get('email')?.errors?.['required'] && registerForm.get('email')?.touched) {
+                    <div class="text-danger">
+                    Email is required
+                    </div>
+                }
+              </div>
+              <div class="mb-3">
+                <input type="text" class="form-control" formControlName="username" placeholder="Username">
+                @if (registerForm.get('username')?.errors?.['required'] && registerForm.get('username')?.touched) {
+                    <div class="text-danger">
+                    Username is required
+                    </div>
+                }
+              </div>
+              <div class="mb-3">
+                <input type="password" class="form-control" formControlName="password" placeholder="Password">
+                @if(registerForm.get('password')?.errors?.['required'] && registerForm.get('password')?.touched) {
+                    <div class="text-danger">
+                    Password is required
+                    </div>
+                }
+              </div>
+              <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary w-100">Register</button>
+            </form>
+            <div class="text-center mt-3">
+              <a routerLink="/login" class="text-muted">Already have an account? Login</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
