@@ -44,25 +44,27 @@ namespace dotnet_angular_credentials_auth.Server.Controllers
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return Ok($"Account with username {registerDto.Username} created successfully!");
+            return Ok(new { message = "User registered successfully" });
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == loginDto.Email);
+
             if (user == null)
-            {
                 return Unauthorized("Invalid credentials");
-            }
 
             if (!BCrypt.Net.BCrypt.Verify(loginDto.Password, user.PasswordHash))
-            {
                 return Unauthorized("Invalid credentials");
-            }
 
             var token = GenerateJwtToken(user);
-            return Ok(new { token });
+
+            return Ok(new
+            {
+                token = token,
+                user = new { user.Username, user.Email }
+            });
         }
 
         [Authorize]

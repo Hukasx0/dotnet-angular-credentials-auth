@@ -1,1 +1,6 @@
-<p>home works!</p>
+@if(user | async; as user) {
+  <div>
+    <h1>You're authorized, hello {{user.username}}!</h1>
+    <button (click)="logout()">Logout</button>
+  </div>
+}
