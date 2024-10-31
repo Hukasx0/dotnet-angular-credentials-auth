@@ -8,8 +8,10 @@ The application is built using the following technologies:
 
 - **Frontend**: Angular 17
 - **Backend**: .NET 8 Core
-- **Authentication**: Entity Framework Core
+- **Authentication**: JWT
+- **ORM**: Entity Framework Core
 - **Database**: PostgreSQL
+- **IDE**: Visual Studio
 
 ## Features
 
